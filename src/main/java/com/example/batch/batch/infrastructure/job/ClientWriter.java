@@ -1,4 +1,4 @@
-package com.example.batch.batch.infrastructure.component;
+package com.example.batch.batch.infrastructure.job;
 
 import com.example.batch.batch.domain.model.ClientProcessed;
 import jakarta.persistence.EntityManagerFactory;

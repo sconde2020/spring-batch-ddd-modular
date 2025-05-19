@@ -1,4 +1,4 @@
-package com.example.batch.batch.infrastructure.component;
+package com.example.batch.batch.infrastructure.job;
 
 import com.example.batch.batch.domain.model.Client;
 import com.example.batch.batch.domain.model.ClientProcessed;
@@ -16,7 +16,6 @@ public class ClientProcessor implements ItemProcessor<Client, ClientProcessed> {
 
     @Override
     public ClientProcessed process(Client client) {
-        System.out.println("In Processing!!");
         return clientService.processClient(client);
     }
 }

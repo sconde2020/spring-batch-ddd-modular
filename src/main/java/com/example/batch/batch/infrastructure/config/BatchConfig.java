@@ -2,6 +2,7 @@ package com.example.batch.batch.infrastructure.config;
 
 import com.example.batch.batch.domain.model.Client;
 import com.example.batch.batch.domain.model.ClientProcessed;
+import com.example.batch.batch.infrastructure.listener.*;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
@@ -22,6 +23,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 @EnableBatchProcessing
 public class BatchConfig {
 
+    private final ClientJobListener jobListener;
+    private final ClientStepListener stepListener;
+
+    public BatchConfig(ClientJobListener jobListener, ClientStepListener stepListener) {
+        this.jobListener = jobListener;
+        this.stepListener = stepListener;
+    }
+
     @Bean
     public Step step(JobRepository jobRepository,
                      PlatformTransactionManager transactionManager,
@@ -33,6 +42,7 @@ public class BatchConfig {
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
+                .listener(stepListener)
                 .build();
     }
 
@@ -40,6 +50,7 @@ public class BatchConfig {
     public Job job(JobRepository jobRepository, Step step) {
         return new JobBuilder("demoJob", jobRepository)
                 .start(step)
+                .listener(jobListener)
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package com.example.batch.batch.infrastructure.component;
+package com.example.batch.batch.infrastructure.job;
 
 import com.example.batch.batch.domain.model.Client;
 import jakarta.persistence.EntityManagerFactory;
@@ -17,7 +17,6 @@ public class ClientReader {
 
     @Bean
     public JpaPagingItemReader<Client> reader() {
-        System.out.println("In reading");
         return new JpaPagingItemReaderBuilder<Client>()
                 .name("clientReader")
                 .entityManagerFactory(emf)
